@@ -1,0 +1,9 @@
+[package]
+name = "rustfetch"
+version = "0.1.0"
+edition = "2021"
+description = "A lightweight, fast, minimal system information tool for Linux"
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
