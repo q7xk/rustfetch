@@ -1,0 +1,108 @@
+.TH RUSTFETCH 1 "2026-11-15" "rustfetch 0.1.1" "User Commands"
+.SH NAME
+rustfetch \- lightweight system information tool for Linux
+.SH SYNOPSIS
+.B rustfetch
+.RI [ COMMAND ] " " [ OPTIONS ]
+.SH DESCRIPTION
+.B rustfetch
+displays essential system information in a terminal with a distro-aware ASCII logo.
+It reads information from local Linux interfaces and environment variables.
+It does not use network access, telemetry, or background services.
+.SH COMMANDS
+.TP
+.BR (default) ", " info
+Show full system information.
+.TP
+.B cpu
+Show CPU model.
+.TP
+.B gpu
+Show GPU information.
+.TP
+.B memory
+Show memory usage.
+.TP
+.B disk
+Show root filesystem disk usage.
+.TP
+.B os
+Show operating system name.
+.TP
+.B uptime
+Show uptime.
+.TP
+.B logo
+Show only the detected distro logo.
+.TP
+.BI "logo " name
+Show full system information with a specific logo.
+.TP
+.B "logo list"
+List all available logo names.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Show help message and exit.
+.TP
+.BR \-V ", " \-\-version
+Show version information and exit.
+.TP
+.BR \-d ", " \-\-distro " " \fINAME\fR
+Use a specific distro logo for full info output.
+.TP
+.B \-\-config
+Show configuration path.
+.TP
+.B \-\-no-color
+Disable ANSI colors.
+.TP
+.B \-\-json
+Output full info as JSON (valid with full info output).
+.TP
+.B \-\-logo
+Alias for
+.B logo
+command.
+.SH JSON OUTPUT
+With
+.BR \-\-json ,
+the following fields are emitted: \fBos\fR, \fBdistro_id\fR, \fBkernel\fR, \fBhostname\fR, \fBusername\fR, \fBuptime\fR, \fBshell\fR, \fBde\fR, \fBwm\fR, \fBterminal\fR, \fBcpu\fR, \fBgpu\fR, \fBmemory\fR, \fBdisk\fR, \fBarchitecture\fR.
+The \fBgpu\fR field may be \fBnull\fR when unavailable.
+.SH EXIT STATUS
+.TP
+.B 0
+Success.
+.TP
+.B 2
+Invalid command or option.
+.SH FILES
+.TP
+.I $XDG_CONFIG_HOME/rustfetch/config.toml
+Configuration path reported by \fB--config\fR when \fBXDG_CONFIG_HOME\fR is set.
+.TP
+.I ~/.config/rustfetch/config.toml
+Fallback configuration path reported by \fB--config\fR.
+.PP
+The current version reports the configuration path but does not require or parse a configuration file.
+.SH EXAMPLES
+.TP
+.B rustfetch
+Show full system information.
+.TP
+.B rustfetch --distro nixos
+Show full system information with the NixOS logo.
+.TP
+.B rustfetch cpu
+Show CPU model.
+.TP
+.B rustfetch --json
+Show full system information as JSON.
+.SH NOTES
+GPU detection is best-effort and may fall back to vendor/device identifiers.
+Disk usage is reported for the root filesystem.
+Desktop environment, window manager/session, terminal, and shell values depend on the runtime environment.
+.SH SEE ALSO
+Project repository: https://github.com/q7xk/rustfetch
+.SH AUTHORS
+Rustfetch contributors.

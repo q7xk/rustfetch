@@ -1,0 +1,25 @@
+name       : rustfetch
+version    : 0.1.1
+release    : 1
+source     :
+    - https://github.com/q7xk/rustfetch/archive/v0.1.1.tar.gz : SKIP
+homepage   : https://github.com/q7xk/rustfetch
+license    : MIT
+component  : system.utils
+summary    : A lightweight, fast, minimal system information tool for Linux
+description: |
+    Rustfetch is a lightweight, fast, minimal system information tool for Linux,
+    written in Rust. It displays essential system details alongside a distro-aware
+    ASCII logo and supports per-field commands and JSON output.
+networking : yes
+builddeps  :
+    - rust
+setup      : |
+    %cargo_fetch
+build      : |
+    %cargo_build
+install    : |
+    %cargo_install
+    install -Dm00644 docs/rustfetch.1 $installdir/usr/share/man/man1/rustfetch.1
+    install -Dm00644 LICENSE $installdir/usr/share/licenses/rustfetch/LICENSE
+    install -Dm00644 README.md $installdir/usr/share/doc/rustfetch/README.md

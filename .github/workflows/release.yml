@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Linux binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --release --locked
+
+      - name: Package artifacts
+        run: |
+          set -euo pipefail
+          VERSION="${GITHUB_REF_NAME}"
+          OUT="dist"
+          mkdir -p "$OUT"
+          cp target/release/rustfetch "$OUT/rustfetch-${VERSION}-linux-x86_64"
+          strip "$OUT/rustfetch-${VERSION}-linux-x86_64" || true
+          tar -C "$OUT" -czf "$OUT/rustfetch-${VERSION}-linux-x86_64.tar.gz" "rustfetch-${VERSION}-linux-x86_64"
+          sha256sum "$OUT/"* > "$OUT/SHA256SUMS"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: rustfetch-${{ github.ref_name }}-linux-x86_64
+          path: dist/*
+
+  release:
+    name: Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: dist/*

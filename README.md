@@ -28,7 +28,7 @@ Rustfetch is a lightweight, fast, minimal system information tool for Linux, wri
 ## Requirements
 
 - Linux (tested on Arch Linux; intended for major distributions)
-- Stable Rust toolchain for building (`cargo`, `rustc`)
+- Stable Rust toolchain for building (`cargo`, `rustc`, Rust >= 1.74)
 
 No external APIs, internet access, telemetry, or background processes are used at runtime.
 
@@ -39,7 +39,7 @@ No external APIs, internet access, telemetry, or background processes are used a
 ```bash
 git clone https://github.com/q7xk/rustfetch.git
 cd rustfetch
-cargo build --release
+cargo build --release --locked
 ./target/release/rustfetch
 ```
 
@@ -49,15 +49,28 @@ cargo build --release
 ./install.sh
 ```
 
-The script builds a release binary and installs it to `/usr/local/bin` when possible (or falls back to `~/.local/bin`).
+Builds a release binary and installs it to `/usr/local/bin` when possible (or falls back to `~/.local/bin`).
 
-### Cargo install
+### Makefile
+
+```bash
+make
+sudo make install PREFIX=/usr/local
+```
+
+Installs the binary, man page (`docs/rustfetch.1`), license, and README under the chosen prefix.
+
+### Cargo
 
 ```bash
 cargo install --path .
 ```
 
 Ensure your Cargo bin directory (typically `~/.cargo/bin`) is in `PATH`.
+
+### Distribution packaging
+
+Starter packaging templates and submission notes for common Linux repositories (AUR, Fedora, Gentoo GURU, Alpine aports, Nixpkgs, openSUSE OBS, ALT Linux, Exherbo, Solus, SlackBuilds, Void Linux, Venom Linux) are available in [`docs/PACKAGING.md`](docs/PACKAGING.md) and [`packaging/`](packaging/).
 
 ## Usage
 
@@ -80,6 +93,8 @@ rustfetch --help              # Show help
 rustfetch --version           # Show version
 rustfetch --config            # Show configuration path
 ```
+
+See [`docs/rustfetch.1`](docs/rustfetch.1) and [`docs/CLI.md`](docs/CLI.md) for full reference.
 
 ### JSON output
 
@@ -106,7 +121,8 @@ rustfetch --config            # Show configuration path
 ```text
 .
 ├── assets/               # Embedded logo assets
-├── docs/                 # Architecture and CLI documentation
+├── docs/                 # Architecture, CLI, man page, packaging docs
+├── packaging/            # Downstream packaging templates
 ├── scripts/              # Helper scripts
 ├── src/                  # Application source
 ├── tests/                # Smoke/integration test scripts
@@ -121,7 +137,7 @@ rustfetch --config            # Show configuration path
 cargo fmt --all -- --check
 cargo clippy --all-targets -- -D warnings
 cargo test --all
-cargo build --release
+cargo build --release --locked
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

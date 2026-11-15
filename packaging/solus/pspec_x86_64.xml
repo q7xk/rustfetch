@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<!DOCTYPE PISI SYSTEM "https://getsol.us/standard/pisi-spec.dtd">
+<PISI>
+    <Source>
+        <Name>rustfetch</Name>
+        <Homepage>https://github.com/q7xk/rustfetch</Homepage>
+        <Packager>
+            <Name>q7xk</Name>
+            <Email>q7xk@users.noreply.github.com</Email>
+        </Packager>
+        <License>MIT</License>
+        <Summary>A lightweight, fast, minimal system information tool for Linux</Summary>
+        <Description>Rustfetch displays essential system information with a distro-aware ASCII logo.</Description>
+        <Archive sha1sum="" type="targz">https://github.com/q7xk/rustfetch/archive/v0.1.1.tar.gz</Archive>
+    </Source>
+</PISI>

@@ -7,11 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-15
+
 ### Added
 - `-d, --distro <name>` option to render full output with a specific logo.
 - `distro_id` field in JSON output.
 - Expanded embedded ASCII logo set (534 logos) with Fastfetch-derived assets and palettes.
 - Unit tests for CLI parsing, OS parsing/uptime formatting, and hardware formatting helpers.
+- Man page (`docs/rustfetch.1`) and `Makefile` install targets for packagers.
+- Distribution packaging templates and packaging documentation for common Linux repositories.
+- Release workflow for tagged source/binary artifacts.
 
 ### Changed
 - `os` subcommand now reports the distro pretty name (without duplicating architecture).
@@ -33,5 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI commands and options: `info`, `cpu`, `gpu`, `memory`, `disk`, `os`, `uptime`, `logo`, `logo list`, `--json`, `--no-color`, `--help`, `--version`, `--config`.
 - Project documentation and MIT license.
 
-[Unreleased]: https://github.com/q7xk/rustfetch/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/q7xk/rustfetch/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/q7xk/rustfetch/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/q7xk/rustfetch/releases/tag/v0.1.0

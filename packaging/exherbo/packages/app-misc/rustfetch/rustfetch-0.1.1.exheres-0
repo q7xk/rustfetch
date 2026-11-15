@@ -1,0 +1,23 @@
+# Copyright 2026 q7xk
+# Distributed under the terms of the MIT License
+
+require github [ user=q7xk tag=v${PV} ]
+require cargo
+
+SUMMARY="A lightweight, fast, minimal system information tool for Linux"
+HOMEPAGE="https://github.com/q7xk/rustfetch"
+
+LICENCES="MIT"
+SLOT="0"
+PLATFORMS="~amd64 ~armv8"
+MYOPTIONS=""
+
+DEPENDENCIES=""
+
+BUGS_TO="q7xk@users.noreply.github.com"
+
+src_install() {
+    cargo_src_install
+    doman docs/rustfetch.1
+    dodoc README.md CHANGELOG.md docs/CLI.md docs/ARCHITECTURE.md docs/PACKAGING.md
+}

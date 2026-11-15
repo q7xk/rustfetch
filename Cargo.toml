@@ -1,6 +1,6 @@
 [package]
 name = "rustfetch"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.74"
 description = "A lightweight, fast, minimal system information tool for Linux"
@@ -11,5 +11,13 @@ homepage = "https://github.com/q7xk/rustfetch"
 documentation = "https://github.com/q7xk/rustfetch/tree/main/docs"
 keywords = ["cli", "system", "fetch", "linux", "neofetch"]
 categories = ["command-line-utilities"]
+exclude = [
+    ".github/*",
+    "packaging/*",
+    "target/*",
+    "scripts/*",
+    "tests/*",
+    "fixtures/*",
+]
 
 [dependencies]

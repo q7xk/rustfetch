@@ -3,3 +3,15 @@
 .DS_Store
 *.swp
 *.swo
+/dist/
+/*.tar.gz
+/rustfetch-*-linux-*
+*.pkg.tar.*
+*.rpm
+*.deb
+*.apk
+*.xbps
+*.tgz
+pkg/
+src/*.tar.*
+

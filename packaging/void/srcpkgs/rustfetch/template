@@ -1,0 +1,17 @@
+# Template file for 'rustfetch'
+pkgname=rustfetch
+version=0.1.1
+revision=1
+build_style=cargo
+short_desc="Lightweight, fast, minimal system information tool for Linux"
+maintainer="q7xk <q7xk@users.noreply.github.com>"
+license="MIT"
+homepage="https://github.com/q7xk/rustfetch"
+distfiles="https://github.com/q7xk/rustfetch/archive/v${version}.tar.gz"
+checksum=SKIP
+
+post_install() {
+	vman docs/rustfetch.1
+	vlicense LICENSE
+	vdoc README.md
+}

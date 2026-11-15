@@ -4,7 +4,7 @@ Thank you for considering a contribution to Rustfetch.
 
 ## Prerequisites
 
-- Stable Rust toolchain (`rustc`, `cargo`, `rustfmt`, `clippy`)
+- Stable Rust toolchain (`rustc`, `cargo`, `rustfmt`, `clippy`, Rust >= 1.74)
 - Linux environment for full runtime behavior
 
 ## Getting Started
@@ -24,6 +24,7 @@ cargo run -- --help
 - Keep code clear, idiomatic, and maintainable.
 - Update documentation (`README.md`, `docs/`, `CHANGELOG.md`) when behavior or CLI changes.
 - Add or update tests for parsing/formatting logic where practical.
+- Keep packaging templates and metadata (`packaging/`, `Cargo.toml`, man page) in sync for releases.
 
 ## Validation
 
@@ -33,7 +34,7 @@ Before opening a pull request, run:
 cargo fmt --all -- --check
 cargo clippy --all-targets -- -D warnings
 cargo test --all
-cargo build --release
+cargo build --release --locked
 ```
 
 Optional smoke check:
@@ -41,6 +42,13 @@ Optional smoke check:
 ```bash
 ./tests/smoke_test.sh
 ```
+
+## Releases and Packaging
+
+- Bump version in `Cargo.toml` and update `CHANGELOG.md` / `docs/rustfetch.1`.
+- Create a tag `v<version>` and push it to trigger the release workflow.
+- Generate a source tarball with `./scripts/create-release-tarball.sh` when needed for downstream submissions.
+- Refresh checksums/versions in `packaging/` templates as appropriate (see `docs/PACKAGING.md`).
 
 ## Pull Requests
 
