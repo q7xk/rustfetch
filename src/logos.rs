@@ -341,8 +341,12 @@ pub fn get(name: &str) -> Option<&'static str> {
         "opensuse_small" => Some(include_str!("../assets/logos/opensuse_small.txt")),
         "opensuse_tumbleweed" => Some(include_str!("../assets/logos/opensuse_tumbleweed.txt")),
         "opensuse_tumbleweed2" => Some(include_str!("../assets/logos/opensuse_tumbleweed2.txt")),
-        "opensuse_tumbleweed_old" => Some(include_str!("../assets/logos/opensuse_tumbleweed_old.txt")),
-        "opensuse_tumbleweed_small" => Some(include_str!("../assets/logos/opensuse_tumbleweed_small.txt")),
+        "opensuse_tumbleweed_old" => {
+            Some(include_str!("../assets/logos/opensuse_tumbleweed_old.txt"))
+        }
+        "opensuse_tumbleweed_small" => Some(include_str!(
+            "../assets/logos/opensuse_tumbleweed_small.txt"
+        )),
         "openwrt" => Some(include_str!("../assets/logos/openwrt.txt")),
         "openwrt_old" => Some(include_str!("../assets/logos/openwrt_old.txt")),
         "openwrt_small" => Some(include_str!("../assets/logos/openwrt_small.txt")),
