@@ -8,8 +8,8 @@ CRATES=""
 inherit cargo
 
 DESCRIPTION="A lightweight, fast, minimal system information tool for Linux"
-HOMEPAGE="https://github.com/q7xk/rustfetch"
-SRC_URI="https://github.com/q7xk/rustfetch/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/q7xk/ultrafetch"
+SRC_URI="https://github.com/q7xk/ultrafetch/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${P}"
 
 LICENSE="MIT"
@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~arm64"
 
 BDEPEND=">=virtual/rust-1.74"
 
-QA_FLAGS_IGNORED="usr/bin/rustfetch"
+QA_FLAGS_IGNORED="usr/bin/ultrafetch"
 
 src_configure() {
 	cargo_src_configure
@@ -34,6 +34,6 @@ src_test() {
 
 src_install() {
 	cargo_src_install
-	doman docs/rustfetch.1
+	doman docs/ultrafetch.1
 	dodoc README.md CHANGELOG.md docs/CLI.md docs/ARCHITECTURE.md docs/PACKAGING.md
 }

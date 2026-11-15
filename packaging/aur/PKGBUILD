@@ -1,10 +1,10 @@
 # Maintainer: q7xk <q7xk@users.noreply.github.com>
-pkgname=rustfetch
+pkgname=ultrafetch
 pkgver=0.1.1
 pkgrel=1
 pkgdesc="A lightweight, fast, minimal system information tool for Linux"
 arch=('x86_64' 'aarch64')
-url="https://github.com/q7xk/rustfetch"
+url="https://github.com/q7xk/ultrafetch"
 license=('MIT')
 depends=('gcc-libs')
 makedepends=('cargo')
@@ -33,7 +33,7 @@ check() {
 package() {
   cd "${pkgname}-${pkgver}"
   install -Dm755 "target/release/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
-  install -Dm644 "docs/rustfetch.1" "${pkgdir}/usr/share/man/man1/rustfetch.1"
+  install -Dm644 "docs/ultrafetch.1" "${pkgdir}/usr/share/man/man1/ultrafetch.1"
   install -Dm644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm644 "README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }

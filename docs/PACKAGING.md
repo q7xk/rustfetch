@@ -1,4 +1,4 @@
-# Packaging Rustfetch
+# Packaging Ultrafetch
 
 This document provides packaging templates and submission guidance for common Linux distribution repositories. Templates are kept in `packaging/` and should be adapted to each ecosystem's latest policies before submission.
 
@@ -7,7 +7,7 @@ This document provides packaging templates and submission guidance for common Li
 - **Versioned release:** create a git tag (e.g. `v0.1.1`) and publish a source tarball/checksums.
 - **License:** MIT (`LICENSE`).
 - **Build:** standard Rust build (`cargo build --release --locked`) with no runtime network access.
-- **Install artifacts:** `rustfetch` binary, `docs/rustfetch.1` man page, `LICENSE`, and `README.md` (paths vary by distro).
+- **Install artifacts:** `ultrafetch` binary, `docs/ultrafetch.1` man page, `LICENSE`, and `README.md` (paths vary by distro).
 - **Metadata:** description, homepage/repository, and license must match upstream.
 
 ## Release Tarball
@@ -16,7 +16,7 @@ After tagging a release:
 
 ```bash
 ./scripts/create-release-tarball.sh
-sha256sum rustfetch-<version>.tar.gz
+sha256sum ultrafetch-<version>.tar.gz
 ```
 
 Use the checksum in downstream manifests/recipes where required.
@@ -27,15 +27,15 @@ Use the checksum in downstream manifests/recipes where required.
 | --- | --- | --- |
 | Arch Linux | AUR (`PKGBUILD` + `.SRCINFO`) | `packaging/aur/` |
 | Fedora | Bugzilla Package Review (`.spec`) | `packaging/fedora/` |
-| Gentoo | GURU ebuild | `packaging/gentoo/app-misc/rustfetch/` |
+| Gentoo | GURU ebuild | `packaging/gentoo/app-misc/ultrafetch/` |
 | Alpine | aports `APKBUILD` | `packaging/alpine/` |
 | NixOS | Nixpkgs derivation | `packaging/nix/` |
 | openSUSE | OBS `_service` + `.spec` | `packaging/opensuse/` |
 | ALT Linux | ALT Git `.spec`/gear | `packaging/altlinux/` |
-| Exherbo | exheres-0 in package repo | `packaging/exherbo/packages/app-misc/rustfetch/` |
+| Exherbo | exheres-0 in package repo | `packaging/exherbo/packages/app-misc/ultrafetch/` |
 | Solus | `package.yml` + `pspec_*.xml` | `packaging/solus/` |
 | Slackware | SlackBuilds.org submission | `packaging/slackware/` |
-| Void Linux | void-packages `template` | `packaging/void/srcpkgs/rustfetch/` |
+| Void Linux | void-packages `template` | `packaging/void/srcpkgs/ultrafetch/` |
 | Venom Linux | ports/recipe | `packaging/venom/` |
 
 ## Notes by Ecosystem

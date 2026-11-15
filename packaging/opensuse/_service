@@ -2,7 +2,7 @@
   <service name="download_url">
     <param name="protocol">https</param>
     <param name="host">github.com</param>
-    <param name="path">q7xk/rustfetch/archive/v0.1.1.tar.gz</param>
-    <param name="filename">rustfetch-0.1.1.tar.gz</param>
+    <param name="path">q7xk/ultrafetch/archive/v0.1.1.tar.gz</param>
+    <param name="filename">ultrafetch-0.1.1.tar.gz</param>
   </service>
 </services>

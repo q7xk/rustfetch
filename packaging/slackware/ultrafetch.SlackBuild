@@ -2,7 +2,7 @@
 
 cd $(dirname $0) ; CWD=$(pwd)
 
-PRGNAM=rustfetch
+PRGNAM=ultrafetch
 VERSION=${VERSION:-0.1.1}
 BUILD=${BUILD:-1}
 TAG=${TAG:-_SBo}
@@ -44,8 +44,8 @@ cargo build --release --locked
 cargo test --release --locked
 
 install -Dm755 target/release/$PRGNAM $PKG/usr/bin/$PRGNAM
-install -Dm644 docs/rustfetch.1 $PKG/usr/man/man1/rustfetch.1
-gzip -9 $PKG/usr/man/man1/rustfetch.1
+install -Dm644 docs/ultrafetch.1 $PKG/usr/man/man1/ultrafetch.1
+gzip -9 $PKG/usr/man/man1/ultrafetch.1
 
 mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
 cp -a README.md LICENSE CHANGELOG.md docs/CLI.md docs/ARCHITECTURE.md docs/PACKAGING.md \

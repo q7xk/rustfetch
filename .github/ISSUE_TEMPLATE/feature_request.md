@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an improvement for Rustfetch
+about: Suggest an improvement for Ultrafetch
 title: "[Feature]: "
 labels: enhancement
 ---

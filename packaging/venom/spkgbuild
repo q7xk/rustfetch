@@ -1,12 +1,12 @@
 # description	: Lightweight, fast, minimal system information tool for Linux
-# homepage	: https://github.com/q7xk/rustfetch
+# homepage	: https://github.com/q7xk/ultrafetch
 # maintainer	: q7xk <q7xk@users.noreply.github.com>
 # depends	: rust
 
-name=rustfetch
+name=ultrafetch
 version=0.1.1
 release=1
-source="https://github.com/q7xk/rustfetch/archive/v$version/$name-$version.tar.gz"
+source="https://github.com/q7xk/ultrafetch/archive/v$version/$name-$version.tar.gz"
 
 build() {
 	cd $name-$version
@@ -14,7 +14,7 @@ build() {
 	cargo build --release --locked
 
 	install -Dm755 target/release/$name $PKG/usr/bin/$name
-	install -Dm644 docs/rustfetch.1 $PKG/usr/share/man/man1/rustfetch.1
+	install -Dm644 docs/ultrafetch.1 $PKG/usr/share/man/man1/ultrafetch.1
 	install -Dm644 LICENSE $PKG/usr/share/licenses/$name/LICENSE
 	install -Dm644 README.md $PKG/usr/share/doc/$name/README.md
 }

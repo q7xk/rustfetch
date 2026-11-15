@@ -6,14 +6,14 @@
 # customary to leave one space after the ':' except on otherwise blank lines.
 
          |-----handy-ruler------------------------------------------------------|
-rustfetch: rustfetch (lightweight system information tool for Linux)
-rustfetch:
-rustfetch: Rustfetch is a minimal, fast system information CLI written in Rust.
-rustfetch: It displays essential system details with distro-aware ASCII logos
-rustfetch: and supports per-field commands and JSON output.
-rustfetch:
-rustfetch: Homepage: https://github.com/q7xk/rustfetch
-rustfetch:
-rustfetch:
-rustfetch:
-rustfetch:
+ultrafetch: ultrafetch (lightweight system information tool for Linux)
+ultrafetch:
+ultrafetch: Ultrafetch is a minimal, fast system information CLI written in Rust.
+ultrafetch: It displays essential system details with distro-aware ASCII logos
+ultrafetch: and supports per-field commands and JSON output.
+ultrafetch:
+ultrafetch: Homepage: https://github.com/q7xk/ultrafetch
+ultrafetch:
+ultrafetch:
+ultrafetch:
+ultrafetch:

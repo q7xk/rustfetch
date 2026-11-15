@@ -3,7 +3,7 @@
 ## Usage
 
 ```bash
-rustfetch [COMMAND] [OPTIONS]
+ultrafetch [COMMAND] [OPTIONS]
 ```
 
 ## Commands
@@ -36,12 +36,12 @@ rustfetch [COMMAND] [OPTIONS]
 ## Examples
 
 ```bash
-rustfetch
-rustfetch info --json
-rustfetch --distro nixos
-rustfetch cpu
-rustfetch logo fedora
-rustfetch logo list
+ultrafetch
+ultrafetch info --json
+ultrafetch --distro nixos
+ultrafetch cpu
+ultrafetch logo fedora
+ultrafetch logo list
 ```
 
 ## JSON Fields

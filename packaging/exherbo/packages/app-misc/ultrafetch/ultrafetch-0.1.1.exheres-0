@@ -5,7 +5,7 @@ require github [ user=q7xk tag=v${PV} ]
 require cargo
 
 SUMMARY="A lightweight, fast, minimal system information tool for Linux"
-HOMEPAGE="https://github.com/q7xk/rustfetch"
+HOMEPAGE="https://github.com/q7xk/ultrafetch"
 
 LICENCES="MIT"
 SLOT="0"
@@ -18,6 +18,6 @@ BUGS_TO="q7xk@users.noreply.github.com"
 
 src_install() {
     cargo_src_install
-    doman docs/rustfetch.1
+    doman docs/ultrafetch.1
     dodoc README.md CHANGELOG.md docs/CLI.md docs/ARCHITECTURE.md docs/PACKAGING.md
 }

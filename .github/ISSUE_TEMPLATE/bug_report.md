@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a problem with Rustfetch
+about: Report a problem with Ultrafetch
 title: "[Bug]: "
 labels: bug
 ---
@@ -20,4 +20,4 @@ A clear description of the issue.
 ## Environment
 - OS / distro:
 - Rust version (`rustc --version`):
-- Rustfetch version (`rustfetch --version`):
+- Ultrafetch version (`ultrafetch --version`):

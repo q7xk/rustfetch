@@ -1,19 +1,54 @@
-# Rustfetch
+<div align="center">
 
-[![CI](https://github.com/q7xk/rustfetch/actions/workflows/ci.yml/badge.svg)](https://github.com/q7xk/rustfetch/actions/workflows/ci.yml)
+# ⚡ Ultrafetch
+
+**Lightning-fast, minimal system information for your Linux terminal**
+
+[![CI](https://github.com/q7xk/ultrafetch/actions/workflows/ci.yml/badge.svg)](https://github.com/q7xk/ultrafetch/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/q7xk/ultrafetch?display_name=tag&sort=semver)](https://github.com/q7xk/ultrafetch/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-stable-orange.svg)](https://www.rust-lang.org/)
+[![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg)](#requirements)
 
-Rustfetch is a lightweight, fast, minimal system information tool for Linux, written in Rust. It displays essential system details alongside a distro-aware ASCII logo in a clean terminal interface.
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Packaging](#-distribution-packaging) • [Docs](#-documentation)
 
-## Highlights
+</div>
 
-- **Fast and minimal:** standard-library-only implementation, no runtime services
-- **Distro-aware logos:** 534 embedded ASCII logos with Fastfetch-based coloring
-- **Flexible output:** full fetch view, per-field commands, and JSON export
-- **Robust by default:** missing or unavailable fields degrade gracefully
-- **Linux-focused:** reads native system interfaces (`/proc`, `/sys`, env vars)
+---
 
-## Displayed Information
+## ✨ Overview
+
+**Ultrafetch** is a lightweight, dependency-free system information tool written in Rust. It shows the essentials—OS, kernel, hardware, desktop environment, and more—next to a beautiful distro-aware ASCII logo, right in your terminal.
+
+```text
+                  -`                   q7xk@archlinux
+                 .o+`                  --------------
+                `ooo/                  OS        Arch Linux x86_64
+               `+oooo:                 Kernel    6.x.x-arch1-1
+              `+oooooo:                Uptime    3 hours, 14 mins
+              -+oooooo+:               Shell     fish
+            `/:-:++oooo+:              DE        KDE
+           `/++++/+++++++:             WM        Wayland
+          `/++++++++++++++:            Terminal  ghostty
+         `/+++ooooooooooooo/`          CPU       Intel Core i5-8300H
+        ./ooosssso++osssssso+`         GPU       NVIDIA GTX 1050
+       .oossssso-````/ossssss+`        Memory    3.2 GiB / 7.6 GiB
+      -osssssso.      :ssssssso.       Disk      53.5 GiB / 237.5 GiB (23%)
+     :osssssss/        osssso+++.      Arch      x86_64
+```
+
+## 🚀 Features
+
+| | |
+|---|---|
+| ⚡ **Blazing fast** | Minimal startup, standard-library-only runtime |
+| 🎨 **534 embedded logos** | Distro-aware ASCII logos with Fastfetch-based coloring |
+| 🧩 **Flexible output** | Full fetch, per-field commands, logo-only, and JSON |
+| 🛡️ **Graceful fallbacks** | Missing fields are handled safely—no crashes |
+| 🐧 **Linux-native** | Reads from `/proc`, `/sys`, and environment variables |
+| 🔒 **Private by design** | No network access, telemetry, or background processes |
+
+## 📋 What it shows
 
 - OS / distribution and architecture
 - Kernel version
@@ -25,25 +60,20 @@ Rustfetch is a lightweight, fast, minimal system information tool for Linux, wri
 - Memory usage
 - Disk usage (root filesystem)
 
-## Requirements
+## 📦 Installation
 
-- Linux (tested on Arch Linux; intended for major distributions)
-- Stable Rust toolchain for building (`cargo`, `rustc`, Rust >= 1.74)
-
-No external APIs, internet access, telemetry, or background processes are used at runtime.
-
-## Installation
-
-### From source
+### Build from source
 
 ```bash
-git clone https://github.com/q7xk/rustfetch.git
-cd rustfetch
+git clone https://github.com/q7xk/ultrafetch.git
+cd ultrafetch
 cargo build --release --locked
-./target/release/rustfetch
+./target/release/ultrafetch
 ```
 
-### Install script
+> Requires a stable Rust toolchain (`rustc`/`cargo`, Rust >= 1.74).
+
+### Quick install script
 
 ```bash
 ./install.sh
@@ -58,7 +88,7 @@ make
 sudo make install PREFIX=/usr/local
 ```
 
-Installs the binary, man page (`docs/rustfetch.1`), license, and README under the chosen prefix.
+Installs the binary, man page, license, and documentation.
 
 ### Cargo
 
@@ -66,72 +96,75 @@ Installs the binary, man page (`docs/rustfetch.1`), license, and README under th
 cargo install --path .
 ```
 
-Ensure your Cargo bin directory (typically `~/.cargo/bin`) is in `PATH`.
-
-### Distribution packaging
-
-Starter packaging templates and submission notes for common Linux repositories (AUR, Fedora, Gentoo GURU, Alpine aports, Nixpkgs, openSUSE OBS, ALT Linux, Exherbo, Solus, SlackBuilds, Void Linux, Venom Linux) are available in [`docs/PACKAGING.md`](docs/PACKAGING.md) and [`packaging/`](packaging/).
-
-## Usage
+## 🛠️ Usage
 
 ```bash
-rustfetch                     # Show full system information
-rustfetch info                # Show full system information
-rustfetch cpu                 # Show CPU model
-rustfetch gpu                 # Show GPU information
-rustfetch memory              # Show memory usage
-rustfetch disk                # Show disk usage
-rustfetch os                  # Show operating system name
-rustfetch uptime              # Show uptime
-rustfetch logo                # Show only the detected distro logo
-rustfetch logo <name>         # Show full info with a specific logo
-rustfetch logo list           # List all available logo names
-rustfetch -d, --distro <name> # Show full info with a specific logo
-rustfetch --json              # Output full info as JSON
-rustfetch --no-color          # Disable ANSI colors
-rustfetch --help              # Show help
-rustfetch --version           # Show version
-rustfetch --config            # Show configuration path
+ultrafetch
 ```
 
-See [`docs/rustfetch.1`](docs/rustfetch.1) and [`docs/CLI.md`](docs/CLI.md) for full reference.
+| Command / Option | Description |
+|---|---|
+| `ultrafetch`, `ultrafetch info` | Show full system information |
+| `ultrafetch cpu` | Show CPU model |
+| `ultrafetch gpu` | Show GPU information |
+| `ultrafetch memory` | Show memory usage |
+| `ultrafetch disk` | Show disk usage |
+| `ultrafetch os` | Show operating system name |
+| `ultrafetch uptime` | Show uptime |
+| `ultrafetch logo` | Show only the detected distro logo |
+| `ultrafetch logo <name>` | Show full info with a specific logo |
+| `ultrafetch logo list` | List all available logo names |
+| `-d, --distro <name>` | Use a specific distro logo for full info |
+| `--json` | Output full info as JSON |
+| `--no-color` | Disable ANSI colors |
+| `-h, --help` | Show help |
+| `-V, --version` | Show version |
+| `--config` | Show configuration path |
 
 ### JSON output
 
-`rustfetch --json` includes: `os`, `distro_id`, `kernel`, `hostname`, `username`, `uptime`, `shell`, `de`, `wm`, `terminal`, `cpu`, `gpu`, `memory`, `disk`, `architecture`.
-
-## Logo Behavior
-
-- Logos are embedded at compile time and selected from the detected distro ID.
-- You can override the logo with `--distro <name>` or `rustfetch logo <name>`.
-- Run `rustfetch logo list` to discover available logo names.
-- Coloring follows Fastfetch ASCII color placeholders/palettes where available.
-
-## Configuration
-
-`rustfetch --config` prints the canonical configuration path:
-
-- `$XDG_CONFIG_HOME/rustfetch/config.toml`, or
-- `~/.config/rustfetch/config.toml` if `XDG_CONFIG_HOME` is not set
-
-> The current version does not read or require a configuration file.
-
-## Project Structure
-
-```text
-.
-├── assets/               # Embedded logo assets
-├── docs/                 # Architecture, CLI, man page, packaging docs
-├── packaging/            # Downstream packaging templates
-├── scripts/              # Helper scripts
-├── src/                  # Application source
-├── tests/                # Smoke/integration test scripts
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-└── README.md
+```bash
+ultrafetch --json
 ```
 
-## Development
+Includes: `os`, `distro_id`, `kernel`, `hostname`, `username`, `uptime`, `shell`, `de`, `wm`, `terminal`, `cpu`, `gpu`, `memory`, `disk`, `architecture`.
+
+## 🎨 Logos
+
+- Ultrafetch embeds **534** ASCII logos and auto-detects your distro.
+- Override anytime: `ultrafetch -d nixos` or `ultrafetch logo fedora`.
+- Discover names with `ultrafetch logo list`.
+- Coloring uses Fastfetch-derived palettes and placeholders where available.
+
+## 📚 Documentation
+
+- [CLI Reference](docs/CLI.md)
+- [Man Page](docs/ultrafetch.1)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Packaging Guide](docs/PACKAGING.md)
+- [Changelog](CHANGELOG.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security Policy](SECURITY.md)
+
+## 📦 Distribution Packaging
+
+Starter templates and submission notes are included for downstream repositories:
+
+`AUR` · `Fedora` · `Gentoo (GURU)` · `Alpine (aports)` · `Nixpkgs` · `openSUSE (OBS)` · `ALT Linux` · `Exherbo` · `Solus` · `SlackBuilds` · `Void Linux` · `Venom Linux`
+
+See [`docs/PACKAGING.md`](docs/PACKAGING.md) and [`packaging/`](packaging/).
+
+## ⚠️ Notes & Limitations
+
+- GPU names are best-effort (sysfs-based; may show vendor/device IDs or driver names).
+- Disk usage is reported for `/`.
+- Desktop/session/terminal/shell values depend on runtime environment variables.
+- Logos without per-region placeholders in upstream art may use palette/base coloring.
+- `--config` prints the canonical config path; the current version does not parse a config file.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the validation checks:
 
 ```bash
 cargo fmt --all -- --check
@@ -140,20 +173,17 @@ cargo test --all
 cargo build --release --locked
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## Limitations
-
-- GPU names are best-effort (derived from sysfs; may fall back to vendor/device IDs or driver names).
-- Disk usage is reported for `/`.
-- Desktop/session/terminal/shell fields depend on environment variables and runtime context.
-- Logos without per-region color placeholders in upstream art may use palette-derived or base coloring.
-
-## Acknowledgements
+## 🙏 Acknowledgements
 
 - Inspired by [Fastfetch](https://github.com/fastfetch-cli/fastfetch) and [Neofetch](https://github.com/dylanaraps/neofetch).
 - ASCII logo art and color metadata are derived from Fastfetch sources.
 
-## License
+## 📄 License
 
 Licensed under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  <sub>Built with Rust • Made for Linux terminals</sub>
+</div>

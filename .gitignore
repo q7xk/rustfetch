@@ -5,7 +5,7 @@
 *.swo
 /dist/
 /*.tar.gz
-/rustfetch-*-linux-*
+/ultrafetch-*-linux-*
 *.pkg.tar.*
 *.rpm
 *.deb

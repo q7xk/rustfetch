@@ -1,11 +1,11 @@
-.TH RUSTFETCH 1 "2026-11-15" "rustfetch 0.1.1" "User Commands"
+.TH ULTRAFETCH 1 "2026-11-15" "ultrafetch 0.1.1" "User Commands"
 .SH NAME
-rustfetch \- lightweight system information tool for Linux
+ultrafetch \- lightweight system information tool for Linux
 .SH SYNOPSIS
-.B rustfetch
+.B ultrafetch
 .RI [ COMMAND ] " " [ OPTIONS ]
 .SH DESCRIPTION
-.B rustfetch
+.B ultrafetch
 displays essential system information in a terminal with a distro-aware ASCII logo.
 It reads information from local Linux interfaces and environment variables.
 It does not use network access, telemetry, or background services.
@@ -78,31 +78,31 @@ Success.
 Invalid command or option.
 .SH FILES
 .TP
-.I $XDG_CONFIG_HOME/rustfetch/config.toml
+.I $XDG_CONFIG_HOME/ultrafetch/config.toml
 Configuration path reported by \fB--config\fR when \fBXDG_CONFIG_HOME\fR is set.
 .TP
-.I ~/.config/rustfetch/config.toml
+.I ~/.config/ultrafetch/config.toml
 Fallback configuration path reported by \fB--config\fR.
 .PP
 The current version reports the configuration path but does not require or parse a configuration file.
 .SH EXAMPLES
 .TP
-.B rustfetch
+.B ultrafetch
 Show full system information.
 .TP
-.B rustfetch --distro nixos
+.B ultrafetch --distro nixos
 Show full system information with the NixOS logo.
 .TP
-.B rustfetch cpu
+.B ultrafetch cpu
 Show CPU model.
 .TP
-.B rustfetch --json
+.B ultrafetch --json
 Show full system information as JSON.
 .SH NOTES
 GPU detection is best-effort and may fall back to vendor/device identifiers.
 Disk usage is reported for the root filesystem.
 Desktop environment, window manager/session, terminal, and shell values depend on the runtime environment.
 .SH SEE ALSO
-Project repository: https://github.com/q7xk/rustfetch
+Project repository: https://github.com/q7xk/ultrafetch
 .SH AUTHORS
-Rustfetch contributors.
+Ultrafetch contributors.

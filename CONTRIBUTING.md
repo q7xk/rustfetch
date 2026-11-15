@@ -1,6 +1,6 @@
-# Contributing to Rustfetch
+# Contributing to Ultrafetch
 
-Thank you for considering a contribution to Rustfetch.
+Thank you for considering a contribution to Ultrafetch.
 
 ## Prerequisites
 
@@ -10,8 +10,8 @@ Thank you for considering a contribution to Rustfetch.
 ## Getting Started
 
 ```bash
-git clone https://github.com/q7xk/rustfetch.git
-cd rustfetch
+git clone https://github.com/q7xk/ultrafetch.git
+cd ultrafetch
 cargo build
 cargo run -- --help
 ```
@@ -45,7 +45,7 @@ Optional smoke check:
 
 ## Releases and Packaging
 
-- Bump version in `Cargo.toml` and update `CHANGELOG.md` / `docs/rustfetch.1`.
+- Bump version in `Cargo.toml` and update `CHANGELOG.md` / `docs/ultrafetch.1`.
 - Create a tag `v<version>` and push it to trigger the release workflow.
 - Generate a source tarball with `./scripts/create-release-tarball.sh` when needed for downstream submissions.
 - Refresh checksums/versions in `packaging/` templates as appropriate (see `docs/PACKAGING.md`).
@@ -60,7 +60,7 @@ Optional smoke check:
 
 Please include:
 
-- Rustfetch version (`rustfetch --version`)
+- Ultrafetch version (`ultrafetch --version`)
 - OS/distribution and environment details
 - Steps to reproduce
 - Expected vs. actual behavior

@@ -61,7 +61,7 @@ where
             }
             _ if arg.starts_with('-') => {
                 return ParseResult::Err(format!(
-                    "unknown option: '{arg}'. Try 'rustfetch --help'."
+                    "unknown option: '{arg}'. Try 'ultrafetch --help'."
                 ))
             }
             _ => positionals.push(arg),
@@ -82,7 +82,7 @@ where
         [cmd, sub] if cmd == "logo" => Command::LogoNamed(sub.clone()),
         _ => {
             return ParseResult::Err(format!(
-                "unknown command: '{}'. Try 'rustfetch --help'.",
+                "unknown command: '{}'. Try 'ultrafetch --help'.",
                 positionals.join(" ")
             ))
         }
@@ -106,10 +106,10 @@ where
 pub fn help_text() -> String {
     let version = env!("CARGO_PKG_VERSION");
     format!(
-        "rustfetch {version}\n\
+        "ultrafetch {version}\n\
 A lightweight, fast, minimal system information tool for Linux.\n\n\
 USAGE:\n\
-    rustfetch [COMMAND] [OPTIONS]\n\n\
+    ultrafetch [COMMAND] [OPTIONS]\n\n\
 COMMANDS:\n\
     (default)       Display full system information\n\
     info            Display full system information\n\
@@ -136,21 +136,21 @@ OPTIONS:
 }
 
 pub fn version_text() -> String {
-    format!("rustfetch {}", env!("CARGO_PKG_VERSION"))
+    format!("ultrafetch {}", env!("CARGO_PKG_VERSION"))
 }
 
 pub fn config_path() -> String {
     if let Ok(xdg) = env::var("XDG_CONFIG_HOME") {
         if !xdg.is_empty() {
-            return format!("{xdg}/rustfetch/config.toml");
+            return format!("{xdg}/ultrafetch/config.toml");
         }
     }
     if let Ok(home) = env::var("HOME") {
         if !home.is_empty() {
-            return format!("{home}/.config/rustfetch/config.toml");
+            return format!("{home}/.config/ultrafetch/config.toml");
         }
     }
-    "rustfetch/config.toml".to_string()
+    "ultrafetch/config.toml".to_string()
 }
 
 #[cfg(test)]

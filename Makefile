@@ -6,7 +6,7 @@ CARGO ?= cargo
 TARGET_DIR ?= target
 PROFILE ?= release
 
-BIN := rustfetch
+BIN := ultrafetch
 
 .PHONY: all build release debug test lint fmt check clean install uninstall dist
 
@@ -41,13 +41,13 @@ clean:
 
 install: build
 	install -Dm755 $(TARGET_DIR)/$(PROFILE)/$(BIN) $(DESTDIR)$(BINDIR)/$(BIN)
-	install -Dm644 docs/rustfetch.1 $(DESTDIR)$(MAN1DIR)/rustfetch.1
+	install -Dm644 docs/ultrafetch.1 $(DESTDIR)$(MAN1DIR)/ultrafetch.1
 	install -Dm644 LICENSE $(DESTDIR)$(PREFIX)/share/licenses/$(BIN)/LICENSE
 	install -Dm644 README.md $(DESTDIR)$(PREFIX)/share/doc/$(BIN)/README.md
 
 uninstall:
 	rm -f $(DESTDIR)$(BINDIR)/$(BIN)
-	rm -f $(DESTDIR)$(MAN1DIR)/rustfetch.1
+	rm -f $(DESTDIR)$(MAN1DIR)/ultrafetch.1
 	rm -rf $(DESTDIR)$(PREFIX)/share/licenses/$(BIN)
 	rm -rf $(DESTDIR)$(PREFIX)/share/doc/$(BIN)
 

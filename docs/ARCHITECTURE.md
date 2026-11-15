@@ -2,7 +2,7 @@
 
 ## Overview
 
-Rustfetch is a small, dependency-free Rust CLI that collects Linux system information and renders it in the terminal as a logo + info layout, per-field output, or JSON.
+Ultrafetch is a small, dependency-free Rust CLI that collects Linux system information and renders it in the terminal as a logo + info layout, per-field output, or JSON.
 
 ## Modules
 
