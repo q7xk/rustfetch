@@ -15,7 +15,12 @@ pub fn render(sys: &SystemInfo, hw: &HardwareInfo, no_color: bool) -> String {
     render_with_distro(sys, hw, no_color, &sys.distro_id)
 }
 
-pub fn render_with_distro(sys: &SystemInfo, hw: &HardwareInfo, no_color: bool, distro_id: &str) -> String {
+pub fn render_with_distro(
+    sys: &SystemInfo,
+    hw: &HardwareInfo,
+    no_color: bool,
+    distro_id: &str,
+) -> String {
     let logo = logo_for(distro_id, no_color);
     let info_lines = build_info_lines(sys, hw, no_color);
     compose(&logo, &info_lines)
@@ -43,9 +48,20 @@ pub fn resolve_logo_name(name: &str) -> Option<String> {
         "endeavour" => "endeavouros",
         "mint" => "linuxmint",
         "popos" | "pop_os" => "pop",
-        "opensuse-leap" | "opensuse-tumbleweed" | "opensuse_slowroll"
-        | "opensuse-tumbleweed-slowroll" | "suse" | "sles" | "opensuse/suse" => "opensuse",
-        "rhel" | "redhat" | "centos" | "rocky" | "almalinux" | "alma" | "oracle"
+        "opensuse-leap"
+        | "opensuse-tumbleweed"
+        | "opensuse_slowroll"
+        | "opensuse-tumbleweed-slowroll"
+        | "suse"
+        | "sles"
+        | "opensuse/suse" => "opensuse",
+        "rhel"
+        | "redhat"
+        | "centos"
+        | "rocky"
+        | "almalinux"
+        | "alma"
+        | "oracle"
         | "rhel/centos/rocky/alma" => "rhel",
         "freebsd/bsd" => "freebsd",
         "bsd" => "bsd",
@@ -62,10 +78,7 @@ pub fn resolve_logo_name(name: &str) -> Option<String> {
 }
 
 fn normalize_name(name: &str) -> String {
-    name.trim()
-        .to_lowercase()
-        .replace(' ', "_")
-        .replace('/', "_")
+    name.trim().to_lowercase().replace([' ', '/'], "_")
 }
 
 fn logo_for(id: &str, no_color: bool) -> Vec<LogoLine> {
@@ -164,18 +177,42 @@ fn logo_candidates(id: &str) -> Vec<String> {
     if let Some(m) = mapped {
         c.push(m.to_string());
     }
-    if n.contains("arch") { c.push("arch".to_string()); }
-    if n.contains("ubuntu") { c.push("ubuntu".to_string()); }
-    if n.contains("debian") { c.push("debian".to_string()); }
-    if n.contains("fedora") { c.push("fedora".to_string()); }
-    if n.contains("suse") { c.push("opensuse".to_string()); }
-    if n.contains("mint") { c.push("linuxmint".to_string()); }
-    if n.contains("manjaro") { c.push("manjaro".to_string()); }
-    if n.contains("nix") { c.push("nixos".to_string()); }
-    if n.contains("gentoo") { c.push("gentoo".to_string()); }
-    if n.contains("alpine") { c.push("alpine".to_string()); }
-    if n.contains("void") { c.push("void".to_string()); }
-    if n.contains("kali") { c.push("kali".to_string()); }
+    if n.contains("arch") {
+        c.push("arch".to_string());
+    }
+    if n.contains("ubuntu") {
+        c.push("ubuntu".to_string());
+    }
+    if n.contains("debian") {
+        c.push("debian".to_string());
+    }
+    if n.contains("fedora") {
+        c.push("fedora".to_string());
+    }
+    if n.contains("suse") {
+        c.push("opensuse".to_string());
+    }
+    if n.contains("mint") {
+        c.push("linuxmint".to_string());
+    }
+    if n.contains("manjaro") {
+        c.push("manjaro".to_string());
+    }
+    if n.contains("nix") {
+        c.push("nixos".to_string());
+    }
+    if n.contains("gentoo") {
+        c.push("gentoo".to_string());
+    }
+    if n.contains("alpine") {
+        c.push("alpine".to_string());
+    }
+    if n.contains("void") {
+        c.push("void".to_string());
+    }
+    if n.contains("kali") {
+        c.push("kali".to_string());
+    }
     c.push("linux".to_string());
     c.push("unknown".to_string());
     let mut out = Vec::new();
@@ -191,7 +228,7 @@ fn colorize_logo_line(
     raw: &str,
     no_color: bool,
     palette: Option<&'static [&'static str]>,
-    line_idx: usize,
+    _line_idx: usize,
     has_placeholders: bool,
 ) -> LogoLine {
     let mut display = String::with_capacity(raw.len() * 2 + 16);
@@ -200,8 +237,16 @@ fn colorize_logo_line(
     let mut active = false;
     let mut current: Option<&'static str> = None;
 
-    if !no_color && has_placeholders {
-        if let Some(p) = palette.and_then(|p| p.first().copied()) {
+    let base_color = palette.and_then(|p| p.first().copied());
+
+    if !no_color {
+        if has_placeholders {
+            if let Some(p) = base_color {
+                display.push_str(p);
+                current = Some(p);
+                active = true;
+            }
+        } else if let Some(p) = base_color {
             display.push_str(p);
             current = Some(p);
             active = true;
@@ -227,19 +272,6 @@ fn colorize_logo_line(
                         }
                     }
                     continue;
-                }
-            }
-        }
-
-        if !no_color && !has_placeholders {
-            if let Some(p) = palette {
-                if !p.is_empty() {
-                    let code = p[(line_idx + width) % p.len()];
-                    if current != Some(code) {
-                        display.push_str(code);
-                        current = Some(code);
-                        active = true;
-                    }
                 }
             }
         }

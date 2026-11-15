@@ -39,7 +39,16 @@ fn run(options: cli::Options) -> ExitCode {
             if options.json {
                 println!("{}", render_json(&sys, &hw));
             } else {
-                println!("{}", terminal::render(&sys, &hw, options.no_color));
+                let distro = options.distro.as_deref().map(|name| {
+                    terminal::resolve_logo_name(name)
+                        .unwrap_or_else(|| name.trim().to_lowercase().replace([' ', '/'], "_"))
+                });
+                let output = if let Some(id) = distro.as_deref() {
+                    terminal::render_with_distro(&sys, &hw, options.no_color, id)
+                } else {
+                    terminal::render(&sys, &hw, options.no_color)
+                };
+                println!("{output}");
             }
             ExitCode::SUCCESS
         }
@@ -52,8 +61,11 @@ fn run(options: cli::Options) -> ExitCode {
             let sys = system::collect();
             let hw = hardware::collect();
             let id = terminal::resolve_logo_name(&name)
-                .unwrap_or_else(|| name.trim().to_lowercase().replace(' ', "_").replace('/', "_"));
-            println!("{}", terminal::render_with_distro(&sys, &hw, options.no_color, &id));
+                .unwrap_or_else(|| name.trim().to_lowercase().replace([' ', '/'], "_"));
+            println!(
+                "{}",
+                terminal::render_with_distro(&sys, &hw, options.no_color, &id)
+            );
             ExitCode::SUCCESS
         }
         cli::Command::LogoList => {
@@ -67,7 +79,10 @@ fn run(options: cli::Options) -> ExitCode {
             ExitCode::SUCCESS
         }
         cli::Command::Gpu => {
-            println!("{}", hardware::gpu().unwrap_or_else(|| "Unknown".to_string()));
+            println!(
+                "{}",
+                hardware::gpu().unwrap_or_else(|| "Unknown".to_string())
+            );
             ExitCode::SUCCESS
         }
         cli::Command::Memory => {
@@ -79,7 +94,7 @@ fn run(options: cli::Options) -> ExitCode {
             ExitCode::SUCCESS
         }
         cli::Command::Os => {
-            println!("{}", system::os_name());
+            println!("{}", system::os_pretty_name());
             ExitCode::SUCCESS
         }
         cli::Command::Uptime => {
@@ -96,8 +111,9 @@ fn render_json(sys: &system::SystemInfo, hw: &hardware::HardwareInfo) -> String 
         .map(|s| format!("\"{}\"", json_escape(s)))
         .unwrap_or_else(|| "null".to_string());
     format!(
-        "{{\n  \"os\": \"{}\",\n  \"kernel\": \"{}\",\n  \"hostname\": \"{}\",\n  \"username\": \"{}\",\n  \"uptime\": \"{}\",\n  \"shell\": \"{}\",\n  \"de\": \"{}\",\n  \"wm\": \"{}\",\n  \"terminal\": \"{}\",\n  \"cpu\": \"{}\",\n  \"gpu\": {},\n  \"memory\": \"{}\",\n  \"disk\": \"{}\",\n  \"architecture\": \"{}\"\n}}",
+        "{{\n  \"os\": \"{}\",\n  \"distro_id\": \"{}\",\n  \"kernel\": \"{}\",\n  \"hostname\": \"{}\",\n  \"username\": \"{}\",\n  \"uptime\": \"{}\",\n  \"shell\": \"{}\",\n  \"de\": \"{}\",\n  \"wm\": \"{}\",\n  \"terminal\": \"{}\",\n  \"cpu\": \"{}\",\n  \"gpu\": {},\n  \"memory\": \"{}\",\n  \"disk\": \"{}\",\n  \"architecture\": \"{}\"\n}}",
         json_escape(&sys.os),
+        json_escape(&sys.distro_id),
         json_escape(&sys.kernel),
         json_escape(&sys.hostname),
         json_escape(&sys.username),

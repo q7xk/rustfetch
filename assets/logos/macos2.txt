@@ -4,14 +4,14 @@
                l  "
      .;loddo:.  .olloddol;.
    cK          NW          0:
- .K                       Wd.
+ $2.K                       Wd.
  X                       X.
-;                        :
+$3;                        :
 :                        :
-.                        X.
+$4.                        X.
  k                        Wd.
- 'X                          k
+ $5'X                          k
   'X                        K.
-    k                      d
+    $6k                      d
      ;K       WXXW       k.
        "cooc*"    "*coo'"

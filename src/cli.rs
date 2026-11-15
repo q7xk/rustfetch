@@ -19,6 +19,7 @@ pub struct Options {
     pub command: Command,
     pub no_color: bool,
     pub json: bool,
+    pub distro: Option<String>,
 }
 
 pub enum ParseResult {
@@ -35,9 +36,11 @@ where
 {
     let mut no_color = false;
     let mut json = false;
+    let mut distro: Option<String> = None;
     let mut positionals: Vec<String> = Vec::new();
+    let mut iter = args.into_iter();
 
-    for arg in args {
+    while let Some(arg) = iter.next() {
         match arg.as_str() {
             "--help" | "-h" => return ParseResult::Help,
             "--version" | "-V" => return ParseResult::Version,
@@ -45,6 +48,17 @@ where
             "--no-color" => no_color = true,
             "--json" => json = true,
             "--logo" => positionals.push("logo".to_string()),
+            "--distro" | "-d" => match iter.next() {
+                Some(value) if !value.starts_with('-') => distro = Some(value),
+                _ => return ParseResult::Err("option '--distro' requires a value".to_string()),
+            },
+            _ if arg.starts_with("--distro=") => {
+                let value = arg.trim_start_matches("--distro=").to_string();
+                if value.is_empty() {
+                    return ParseResult::Err("option '--distro' requires a value".to_string());
+                }
+                distro = Some(value);
+            }
             _ if arg.starts_with('-') => {
                 return ParseResult::Err(format!(
                     "unknown option: '{arg}'. Try 'rustfetch --help'."
@@ -77,11 +91,15 @@ where
     if json && command != Command::Info {
         return ParseResult::Err("`--json` is only supported with full info output".to_string());
     }
+    if distro.is_some() && command != Command::Info {
+        return ParseResult::Err("`--distro` is only supported with full info output".to_string());
+    }
 
     ParseResult::Ok(Options {
         command,
         no_color,
         json,
+        distro,
     })
 }
 
@@ -103,14 +121,17 @@ COMMANDS:\n\
     uptime          Show uptime\n\
     logo            Display only the current distro logo\n\
     logo <name>     Display system info with a specific distro logo\n\
-    logo list       List all available logo names\n\n\
-OPTIONS:\n\
-    -h, --help      Show this help message\n\
-    -V, --version   Show version information\n\
-        --config    Show configuration location\n\
-        --no-color  Disable terminal colors\n\
-        --json      Output full info as JSON\n\
-        --logo      Display only the logo\n"
+    logo list       List all available logo names
+
+OPTIONS:
+    -h, --help           Show this help message
+    -V, --version        Show version information
+    -d, --distro <name>  Use a specific distro logo for full info
+        --config         Show configuration location
+        --no-color       Disable terminal colors
+        --json           Output full info as JSON
+        --logo           Display only the logo
+"
     )
 }
 
@@ -130,4 +151,63 @@ pub fn config_path() -> String {
         }
     }
     "rustfetch/config.toml".to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_default_info() {
+        let res = parse_args(Vec::<String>::new());
+        match res {
+            ParseResult::Ok(opts) => {
+                assert!(matches!(opts.command, Command::Info));
+                assert!(!opts.no_color);
+                assert!(!opts.json);
+                assert!(opts.distro.is_none());
+            }
+            _ => panic!("expected Ok"),
+        }
+    }
+
+    #[test]
+    fn parse_distro_and_json() {
+        let res = parse_args(vec![
+            "--distro".to_string(),
+            "nixos".to_string(),
+            "--json".to_string(),
+        ]);
+        match res {
+            ParseResult::Ok(opts) => {
+                assert!(matches!(opts.command, Command::Info));
+                assert!(opts.json);
+                assert_eq!(opts.distro.as_deref(), Some("nixos"));
+            }
+            _ => panic!("expected Ok"),
+        }
+    }
+
+    #[test]
+    fn parse_logo_named() {
+        let res = parse_args(vec!["logo".to_string(), "arch".to_string()]);
+        match res {
+            ParseResult::Ok(opts) => {
+                assert!(matches!(opts.command, Command::LogoNamed(ref n) if n == "arch"))
+            }
+            _ => panic!("expected Ok"),
+        }
+    }
+
+    #[test]
+    fn reject_unknown_option() {
+        let res = parse_args(vec!["--wat".to_string()]);
+        assert!(matches!(res, ParseResult::Err(_)));
+    }
+
+    #[test]
+    fn reject_json_with_subcommand() {
+        let res = parse_args(vec!["cpu".to_string(), "--json".to_string()]);
+        assert!(matches!(res, ParseResult::Err(_)));
+    }
 }

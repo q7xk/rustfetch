@@ -131,9 +131,7 @@ pub fn gpu() -> Option<String> {
 }
 
 pub fn disk() -> String {
-    let output = Command::new("df")
-        .args(["-B1", "-P", "/"])
-        .output();
+    let output = Command::new("df").args(["-B1", "-P", "/"]).output();
     let Ok(output) = output else {
         return "Unknown".to_string();
     };
@@ -223,9 +221,10 @@ fn describe_gpu(device_path: &std::path::Path) -> Option<String> {
 
     match (vendor_name, device_id) {
         (Some(v), Some(d)) => Some(format!("{v} {d}")),
-        (None, Some(d)) if !vendor.is_empty() => {
-            Some(format!("{} {d}", normalize_pci_id(&vendor).unwrap_or(vendor)))
-        }
+        (None, Some(d)) if !vendor.is_empty() => Some(format!(
+            "{} {d}",
+            normalize_pci_id(&vendor).unwrap_or(vendor)
+        )),
         _ => {
             let driver = read_trimmed(&device_path.join("uevent")).and_then(|u| {
                 u.lines().find_map(|line| {
@@ -270,3 +269,26 @@ fn pci_vendor_name(vendor: &str) -> Option<&'static str> {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn format_bytes_units() {
+        assert_eq!(format_bytes(512), "512 B");
+        assert_eq!(format_bytes(1024), "1.0 KiB");
+        assert_eq!(format_bytes(1024 * 1024 * 3), "3.0 MiB");
+        assert_eq!(format_bytes(1024 * 1024 * 1024), "1.0 GiB");
+    }
+
+    #[test]
+    fn format_gib_from_kib() {
+        assert_eq!(format_gib(1024 * 1024), "1.0 GiB");
+    }
+
+    #[test]
+    fn normalize_pci_ids() {
+        assert_eq!(normalize_pci_id("0x10DE").as_deref(), Some("0x10de"));
+        assert_eq!(pci_vendor_name("0x10de"), Some("NVIDIA"));
+    }
+}

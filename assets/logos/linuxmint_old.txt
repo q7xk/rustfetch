@@ -1,16 +1,16 @@
 MMMMMMMMMMMMMMMMMMMMMMMMMmds+.
 MMm----::-://////////////oymNMd+`
-MMd      /++                -sNMd:
-MMNso/`  dMM    `.::-. .-::.` .hMN:
-ddddMMh  dMM   :hNMNMNhNMNMNh: `NMm
-    NMm  dMM  .NMN/-+MMM+-/NMN` dMM
-    NMm  dMM  -MMm  `MMM   dMM. dMM
-    NMm  dMM  -MMm  `MMM   dMM. dMM
-    NMm  dMM  .mmd  `mmm   yMM. dMM
-    NMm  dMM`  ..`   ...   ydm. dMM
-    hMM- +MMd/-------...-:sdds  dMM
-    -NMm- :hNMNNNmdddddddddy/`  dMM
-    -dMNs-``-::::-------.``    dMM
+MMd      $2/++                $1-sNMd:
+MMNso/`  $2dMM    `.::-. .-::.` $1.hMN:
+ddddMMh  $2dMM   :hNMNMNhNMNMNh: $1`NMm
+    NMm  $2dMM  .NMN/-+MMM+-/NMN` $1dMM
+    NMm  $2dMM  -MMm  `MMM   dMM. $1dMM
+    NMm  $2dMM  -MMm  `MMM   dMM. $1dMM
+    NMm  $2dMM  .mmd  `mmm   yMM. $1dMM
+    NMm  $2dMM`  ..`   ...   ydm. $1dMM
+    hMM- $2+MMd/-------...-:sdds  $1dMM
+    -NMm- $2:hNMNNNmdddddddddy/`  $1dMM
+    -dMNs-$2``-::::-------.``    $1dMM
     `/dMNmy+/:-------------:/yMMM
       ./ydNMMMMMMMMMMMMMMMMMMMMM
           .MMMMMMMMMMMMMMMMMMM

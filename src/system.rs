@@ -39,12 +39,14 @@ fn read_to_string(path: &str) -> Option<String> {
 
 fn os_and_id() -> (String, String) {
     let arch = architecture();
-    let (name, id) = read_os_release().unwrap_or_else(|| ("Linux".to_string(), "linux".to_string()));
+    let (name, id) =
+        read_os_release().unwrap_or_else(|| ("Linux".to_string(), "linux".to_string()));
     (format!("{name} {arch}"), id)
 }
 
-pub fn os_name() -> String {
-    os_and_id().0
+pub fn os_pretty_name() -> String {
+    let (name, _) = read_os_release().unwrap_or_else(|| ("Linux".to_string(), "linux".to_string()));
+    name
 }
 
 pub fn distro_id() -> String {
@@ -204,7 +206,11 @@ fn parent_process_name() -> Option<String> {
     let ppid = rest.split_whitespace().nth(1)?;
     let comm = fs::read_to_string(format!("/proc/{ppid}/comm")).ok()?;
     let name = comm.trim().to_string();
-    if name.is_empty() { None } else { Some(name) }
+    if name.is_empty() {
+        None
+    } else {
+        Some(name)
+    }
 }
 
 fn normalize_shell_name(name: &str) -> Option<String> {
@@ -239,7 +245,11 @@ pub fn desktop_environment() -> String {
         .ok()
         .filter(|s| !s.is_empty())
         .or_else(|| env::var("DESKTOP_SESSION").ok().filter(|s| !s.is_empty()))
-        .or_else(|| env::var("XDG_SESSION_DESKTOP").ok().filter(|s| !s.is_empty()))
+        .or_else(|| {
+            env::var("XDG_SESSION_DESKTOP")
+                .ok()
+                .filter(|s| !s.is_empty())
+        })
         .unwrap_or_else(|| "Unknown".to_string())
 }
 
@@ -253,7 +263,11 @@ pub fn window_manager() -> String {
             };
         }
     }
-    if env::var("WAYLAND_DISPLAY").ok().filter(|s| !s.is_empty()).is_some() {
+    if env::var("WAYLAND_DISPLAY")
+        .ok()
+        .filter(|s| !s.is_empty())
+        .is_some()
+    {
         return "Wayland".to_string();
     }
     if env::var("DISPLAY").ok().filter(|s| !s.is_empty()).is_some() {
@@ -273,4 +287,33 @@ pub fn terminal_name() -> String {
 
 pub fn architecture() -> String {
     env::consts::ARCH.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_os_release_basic() {
+        let content = "NAME=\"TestOS\"\nVERSION_ID=\"1.2\"\nID=test\nPRETTY_NAME=\"Test OS 1.2\"\n";
+        let parsed = parse_os_release(content).unwrap();
+        assert_eq!(parsed.0, "Test OS 1.2");
+        assert_eq!(parsed.1, "test");
+    }
+
+    #[test]
+    fn parse_os_release_fallbacks() {
+        let content = "NAME=MyLinux\nVERSION_ID=9\nID_LIKE=\"debian ubuntu\"\n";
+        let parsed = parse_os_release(content).unwrap();
+        assert_eq!(parsed.0, "MyLinux 9");
+        assert_eq!(parsed.1, "debian");
+    }
+
+    #[test]
+    fn format_uptime_values() {
+        assert_eq!(format_uptime(45), "0 mins");
+        assert_eq!(format_uptime(120), "2 mins");
+        assert_eq!(format_uptime(3660), "1 hour, 1 min");
+        assert_eq!(format_uptime(90061), "1 day, 1 hour, 1 min");
+    }
 }

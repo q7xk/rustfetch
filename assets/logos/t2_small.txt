@@ -1,6 +1,6 @@
-TTTTTTTTTT
-    tt   222
-    tt  2   2
-    tt     2
-    tt    2
-    tt  22222
+$2TTTTTTTTTT
+    tt   $1222$2
+    tt  $12   2$2
+    tt     $12$2
+    tt    $12$2
+    tt  $122222$2

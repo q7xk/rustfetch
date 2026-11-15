@@ -3,14 +3,14 @@
               /+++/.
       .:-::- .+/:-\`\`.::-
    .:/++++++/::::/++++++/::`
- .:///////////////////////::`
+ $2.:///////////////////////::`
  /////////////////////////`
-+++++++++++++++++++++++++`
+$3+++++++++++++++++++++++++`
 ++++++++++++++++++++++++
-ssssssssssssssssssssssss.
+$4ssssssssssssssssssssssss.
 :ssssssssssssssssssssssss-
- osssssssssssssssssssssssss`
+ $5osssssssssssssssssssssssss`
  `syyyyyyyyyyyyyyyyyyyyyyyyys`
-  `ossssssssssssssssssssssss
+  $6`ossssssssssssssssssssssss
     :ooooooooooooooooooo+.
      `:++oo+/:-  -:/+o+/-
