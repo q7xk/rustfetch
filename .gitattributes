@@ -1,0 +1,15 @@
+* text=auto eol=lf
+
+*.rs text
+*.md text
+*.toml text
+*.yml text
+*.yaml text
+*.sh text eol=lf
+*.txt text
+*.lock text
+LICENSE text
+.gitignore text
+.gitattributes text
+.editorconfig text
+Makefile text

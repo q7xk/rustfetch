@@ -1,33 +1,59 @@
 # Contributing to Rustfetch
 
-## Development
+Thank you for considering a contribution to Rustfetch.
 
-Requirements:
-- Stable Rust toolchain (`rustc`, `cargo`)
+## Prerequisites
+
+- Stable Rust toolchain (`rustc`, `cargo`, `rustfmt`, `clippy`)
 - Linux environment for full runtime behavior
 
-Build and run:
+## Getting Started
 
 ```bash
+git clone https://github.com/q7xk/rustfetch.git
+cd rustfetch
 cargo build
-cargo run --quiet --
+cargo run -- --help
 ```
 
-## Guidelines
+## Development Guidelines
 
-- Keep dependencies minimal and prefer standard library solutions.
+- Keep dependencies minimal; prefer standard-library solutions.
 - Preserve fast startup and graceful fallbacks for unavailable system fields.
 - Do not add network access, telemetry, or unnecessary background processes.
-- Keep code clean, idiomatic, and maintainable.
-- Update `README.md` and `CHANGELOG.md` when behavior or CLI changes.
+- Keep code clear, idiomatic, and maintainable.
+- Update documentation (`README.md`, `docs/`, `CHANGELOG.md`) when behavior or CLI changes.
+- Add or update tests for parsing/formatting logic where practical.
 
 ## Validation
 
-Before submitting changes, run:
+Before opening a pull request, run:
 
 ```bash
-cargo fmt
+cargo fmt --all -- --check
 cargo clippy --all-targets -- -D warnings
-cargo test
+cargo test --all
 cargo build --release
 ```
+
+Optional smoke check:
+
+```bash
+./tests/smoke_test.sh
+```
+
+## Pull Requests
+
+- Keep changes focused and describe the motivation and impact.
+- Include validation steps/results in the PR description.
+- Link related issues when applicable.
+
+## Reporting Issues
+
+Please include:
+
+- Rustfetch version (`rustfetch --version`)
+- OS/distribution and environment details
+- Steps to reproduce
+- Expected vs. actual behavior
+- Relevant command output (use `--no-color` if helpful)

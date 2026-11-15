@@ -2,8 +2,14 @@
 name = "rustfetch"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.74"
 description = "A lightweight, fast, minimal system information tool for Linux"
-license = "MIT"
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/q7xk/rustfetch"
+homepage = "https://github.com/q7xk/rustfetch"
+documentation = "https://github.com/q7xk/rustfetch/tree/main/docs"
+keywords = ["cli", "system", "fetch", "linux", "neofetch"]
+categories = ["command-line-utilities"]
 
 [dependencies]
